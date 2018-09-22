@@ -1,0 +1,22 @@
+{
+  "name": "simple-sketchpad",
+  "version": "1.0.0",
+  "description": "simple sketchpad for linux tablet",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnotherOctopus/simple-sketchpad.git"
+  },
+  "author": "AnotherOctopus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnotherOctopus/simple-sketchpad/issues"
+  },
+  "homepage": "https://github.com/AnotherOctopus/simple-sketchpad#readme",
+  "devDependencies": {
+    "electron": "^3.0.0"
+  }
+}
