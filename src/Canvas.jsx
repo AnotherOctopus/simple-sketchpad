@@ -1,4 +1,5 @@
 import React from 'react';
+var fs = require('fs');
 class Canvas extends React.Component {
         constructor(props) {
                 super(props)
@@ -78,6 +79,7 @@ class Canvas extends React.Component {
         }
         componentDidMount() {
                 this.initCanvas();
+                this.props.savePressed(this.savecanvas(this.refs.canvas));
         }
         draw() {
                 var ctx = this.state.ctx;
@@ -89,6 +91,20 @@ class Canvas extends React.Component {
                 ctx.stroke();
                 ctx.closePath();
         }    
+        savecanvas(canvas) {
+                function save(){
+                        var can = canvas; 
+                        var data = can.toDataURL().replace(/^data:image\/\w+;base64,/,"");
+                        var buf = Buffer.from(data,'base64');
+                        fs.writeFile("/tmp/test",buf,(err) => {
+                                if (err) {
+                                        return console.log(err);
+                                }
+                                console.log("saved");
+                        });
+                }
+                return save
+        }
         clear() {
                 var m = confirm("Clear?");
                 if(m){
@@ -123,6 +139,9 @@ class Canvas extends React.Component {
                         this.setState({
                                 h: can.height
                         });
+                        const ctx = this.refs.canvas.getContext("2d");
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.fillRect(0,0,can.width,can.height);
         }
         render() {
                 return (
