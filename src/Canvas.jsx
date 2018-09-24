@@ -144,8 +144,11 @@ class Canvas extends React.Component {
                         ctx.fillRect(0,0,can.width,can.height);
         }
         render() {
+                var canvasStyle = {
+                        border: "4px solid #000000"
+                }
                 return (
-                        <canvas ref="canvas" width={800} height={600}/>
+                        <canvas className={canvasStyle} ref="canvas" width={200} height={200}/>
                 );
         }
 };
