@@ -96,7 +96,17 @@ class Canvas extends React.Component {
                         var can = canvas; 
                         var data = can.toDataURL().replace(/^data:image\/\w+;base64,/,"");
                         var buf = Buffer.from(data,'base64');
-                        fs.writeFile("/tmp/test",buf,(err) => {
+                        var today = new Date();
+
+                        var strDate = 'Y-M-d-h-m'
+                          .replace('Y', today.getFullYear())
+                          .replace('M', today.getMonth()+1)
+                          .replace('d', today.getDate())
+                          .replace('h', today.getHours())
+                          .replace('m', today.getMinutes());
+
+
+                        fs.writeFile(this.props.notedir + strDate,buf,(err) => {
                                 if (err) {
                                         return console.log(err);
                                 }
@@ -148,7 +158,7 @@ class Canvas extends React.Component {
                         border: "4px solid #000000"
                 }
                 return (
-                        <canvas className={canvasStyle} ref="canvas" width={200} height={200}/>
+                        <canvas className={canvasStyle} ref="canvas" width={400} height={400}/>
                 );
         }
 };

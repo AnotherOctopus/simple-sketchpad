@@ -3,6 +3,6 @@ import Sketchpad from './Sketchpad';
 
 export default class App extends React.Component {
   render() {
-    return (<Sketchpad/>);
+    return (<Sketchpad notedir="/home/zhukov/Documents/notes/"/>);
   }
 }
