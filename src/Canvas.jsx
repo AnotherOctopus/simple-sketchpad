@@ -82,10 +82,11 @@ class Canvas extends React.Component {
                 this.props.savePressed(this.savecanvas(this.refs.canvas));
         }
         draw() {
+                var scdown = document.documentElement.scrollTop;
                 var ctx = this.state.ctx;
                 ctx.beginPath();
-                ctx.moveTo(this.state.prevX, this.state.prevY);
-                ctx.lineTo(this.state.currX, this.state.currY);
+                ctx.moveTo(this.state.prevX, this.state.prevY + scdown);
+                ctx.lineTo(this.state.currX, this.state.currY + scdown);
                 ctx.strokeStyle = this.state.color;
                 ctx.lineWidth = this.state.lwidth;
                 ctx.stroke();
@@ -158,7 +159,7 @@ class Canvas extends React.Component {
                         border: "4px solid #000000"
                 }
                 return (
-                        <canvas className={canvasStyle} ref="canvas" width={400} height={400}/>
+                        <canvas className={canvasStyle} ref="canvas" width={840} height={2800}/>
                 );
         }
 };
