@@ -15,7 +15,7 @@ class Canvas extends React.Component {
                         w:0,
                         h:0,
                         color: "black",
-                        lWidth:3
+                        lWidth:1
                 }
         }
         findxy(res,e){
@@ -25,21 +25,11 @@ class Canvas extends React.Component {
         
                if (res == 'down') {
                     this.setState({
-                            prevX:currX
-                    });
-                    this.setState({
-                            prevY:currY
-                    });
-                    this.setState({
-                            currX: e.clientX - canvas.offsetLeft
-                    });
-                    this.setState({
-                            currY: e.clientY - canvas.offsetTop
-                    });
-                    this.setState({
-                            flag: true
-                    });
-                    this.setState({
+                            prevX:currX,
+                            prevY:currY,
+                            currX: e.clientX - canvas.offsetLeft,
+                            currY: e.clientY - canvas.offsetTop,
+                            flag: true,
                             dotFlag: true
                     });
 
@@ -88,7 +78,7 @@ class Canvas extends React.Component {
                 ctx.moveTo(this.state.prevX, this.state.prevY + scdown);
                 ctx.lineTo(this.state.currX, this.state.currY + scdown);
                 ctx.strokeStyle = this.state.color;
-                ctx.lineWidth = this.state.lwidth;
+                ctx.lineWidth = this.state.lWidth;
                 ctx.stroke();
                 ctx.closePath();
         }    
@@ -111,7 +101,6 @@ class Canvas extends React.Component {
                                 if (err) {
                                         return console.log(err);
                                 }
-                                console.log("saved");
                         });
                 }
                 return save
@@ -129,30 +118,44 @@ class Canvas extends React.Component {
                           this.findxy('move', e)
                         }, false);
                         can.addEventListener("mousedown", (e) => {
-                            this.findxy('down', e)
+                            if(e.button === 0) {
+                                    this.findxy('down', e)
+                            } else {
+                                    this.toggleErase()                           
+                            }
                         }, false);
                         can.addEventListener("mouseup", (e) => {
-                            this.findxy('up', e)
+                            if(e.button === 0) {
+                                    this.findxy('up', e)
+                            } 
                         }, false);
                         can.addEventListener("mouseout", (e) => {
                             this.findxy('out', e)
                         }, false);
 
                         this.setState({
-                                canvas: can 
-                        });
-                        this.setState({
-                                ctx: can.getContext("2d")
-                        });
-                        this.setState({
-                                w: can.width
-                        });
-                        this.setState({
+                                canvas: can,
+                                ctx: can.getContext("2d"),
+                                w: can.width,
                                 h: can.height
                         });
                         const ctx = this.refs.canvas.getContext("2d");
                         ctx.fillStyle = "#FFFFFF";
                         ctx.fillRect(0,0,can.width,can.height);
+        }
+        toggleErase(){
+                if(this.state.color === "black"){
+                        this.setState({
+                                color: "white",
+                                lWidth: 30
+                        });
+                }else if ( this.state.color === "white") {
+                        this.setState({
+                                color: "black",
+                                lWidth: 1
+                        });
+
+                }
         }
         render() {
                 var canvasStyle = {
