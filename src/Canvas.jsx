@@ -70,6 +70,7 @@ class Canvas extends React.Component {
         componentDidMount() {
                 this.initCanvas();
                 this.props.savePressed(this.savecanvas(this.refs.canvas));
+                this.props.clearPressed(this.clearcanvas(this.refs.canvas));
         }
         draw() {
                 var scdown = document.documentElement.scrollTop;
@@ -105,11 +106,15 @@ class Canvas extends React.Component {
                 }
                 return save
         }
-        clear() {
-                var m = confirm("Clear?");
-                if(m){
-                        ctx.clearRect(0,0,this.state.w,this.state.h);
+        clearcanvas(canvas){
+                var ctx = canvas.getContext("2d")
+                function clear() {
+                        var m = confirm("Clear?");
+                        if(m){
+                                ctx.clearRect(0,0,canvas.width,canvas.height);
+                        }
                 }
+                return clear
         }
         initCanvas() {
                         var can = this.refs.canvas; 

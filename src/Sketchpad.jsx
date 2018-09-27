@@ -26,10 +26,13 @@ class Sketchpad extends React.Component {
              CONTENT
             </div>
             <div className={columnStyle} >
-                      <Canvas savePressed={press => this.canvas = press}/>
+                      <Canvas savePressed={press => this.canvasSave = press} clearPressed={press => this.canvasClear = press}/>
             </div>
             <div className={columnStyle} >
-                      <Button name="Save" onClick={() => this.canvas()}/>
+                      <Button name="Save" onClick={() => this.canvasSave()}/>
+            </div>
+            <div className={columnStyle} >
+                      <Button name="Clear" onClick={() => this.canvasClear()}/>
             </div>
     </div>
     );
